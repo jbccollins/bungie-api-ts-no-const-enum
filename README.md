@@ -6,10 +6,10 @@ This project is a fork of [bungie-api-ts-no-const-enum](https://github.com/jbcco
 
 Here is the mapping of versions
 
-| bungie-api-ts-no-const-enum | bungie-api-ts-no-const-enum |
-| --------------------------- | --------------------------- |
-| 4.19.0                      | 0.0.3                       |
-| 4.22.3                      | 0.0.8                       |
+| bungie-api-ts | bungie-api-ts-no-const-enum |
+| ------------- | --------------------------- |
+| 4.19.0        | 0.0.3                       |
+| 4.22.3        | 0.0.8                       |
 
 #### Modified development steps:
 
