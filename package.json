@@ -1,6 +1,6 @@
 {
-  "name": "bungie-api-ts",
-  "version": "4.22.3",
+  "name": "bungie-api-ts-no-const-enum",
+  "version": "0.0.8",
   "description": "TypeScript mappings for the Bungie.net API",
   "type": "module",
   "sideEffects": false,
@@ -35,12 +35,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DestinyItemManager/bungie-api-ts.git"
+    "url": "https://github.com/jbccollins/bungie-api-ts-no-const-enum.git"
   },
   "author": "Ben Hollis",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DestinyItemManager/bungie-api-ts/issues"
+    "url": "https://github.com/jbccollins/bungie-api-ts-no-const-enum/issues"
   },
   "keywords": [
     "Destiny",
@@ -48,7 +48,7 @@
     "Bungie.net",
     "TypeScript"
   ],
-  "homepage": "https://github.com/DestinyItemManager/bungie-api-ts",
+  "homepage": "https://github.com/jbccollins/bungie-api-ts-no-const-enum",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",

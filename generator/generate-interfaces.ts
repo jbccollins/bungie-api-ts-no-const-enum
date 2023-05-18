@@ -96,7 +96,7 @@ function generateEnum(defInfo: DefInfo, component: SchemaObject) {
 
   // TODO: const enums are super efficient (they get inlined) but we may want to change this if we want to do things like
   // print out the name of an enum case.
-  return `${docString}export const enum ${defInfo.interfaceName} {
+  return `${docString}export enum ${defInfo.interfaceName} {
 ${indent(values, 1)}
 }`;
 }
