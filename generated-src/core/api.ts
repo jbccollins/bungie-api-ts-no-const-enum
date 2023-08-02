@@ -54,7 +54,9 @@ export function getGlobalAlerts(
   http: HttpClient,
   params: GetGlobalAlertsParams
 ): Promise<ServerResponse<GlobalAlert[]>> {
-  return get(http, `${API_BASE}GlobalAlerts/`, {
-    includestreaming: params.includestreaming,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.includestreaming !== undefined) {
+    strParams.includestreaming = params.includestreaming.toString();
+  }
+  return get(http, `${API_BASE}GlobalAlerts/`, strParams);
 }

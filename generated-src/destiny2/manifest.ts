@@ -11,7 +11,7 @@
  * Do not edit these files manually.
  */
 
-import { HttpClient } from '../http.js';
+import { HttpClient, get } from '../http.js';
 
 import {
   DestinyPlaceDefinition,
@@ -23,7 +23,6 @@ import {
   DestinyRaceDefinition,
   DestinyTalentGridDefinition,
   DestinyUnlockDefinition,
-  DestinySandboxPerkDefinition,
   DestinyStatGroupDefinition,
   DestinyProgressionMappingDefinition,
   DestinyFactionDefinition,
@@ -50,6 +49,7 @@ import {
   DestinyMaterialRequirementSetDefinition,
   DestinyMetricDefinition,
   DestinyObjectiveDefinition,
+  DestinySandboxPerkDefinition,
   DestinyPlugSetDefinition,
   DestinyPowerCapDefinition,
   DestinyPresentationNodeDefinition,
@@ -93,7 +93,6 @@ export interface AllDestinyManifestComponents {
   DestinyRaceDefinition: { [key: number]: DestinyRaceDefinition };
   DestinyTalentGridDefinition: { [key: number]: DestinyTalentGridDefinition };
   DestinyUnlockDefinition: { [key: number]: DestinyUnlockDefinition };
-  DestinySandboxPerkDefinition: { [key: number]: DestinySandboxPerkDefinition };
   DestinyStatGroupDefinition: { [key: number]: DestinyStatGroupDefinition };
   DestinyProgressionMappingDefinition: { [key: number]: DestinyProgressionMappingDefinition };
   DestinyFactionDefinition: { [key: number]: DestinyFactionDefinition };
@@ -122,6 +121,7 @@ export interface AllDestinyManifestComponents {
   };
   DestinyMetricDefinition: { [key: number]: DestinyMetricDefinition };
   DestinyObjectiveDefinition: { [key: number]: DestinyObjectiveDefinition };
+  DestinySandboxPerkDefinition: { [key: number]: DestinySandboxPerkDefinition };
   DestinyPlugSetDefinition: { [key: number]: DestinyPlugSetDefinition };
   DestinyPowerCapDefinition: { [key: number]: DestinyPowerCapDefinition };
   DestinyPresentationNodeDefinition: { [key: number]: DestinyPresentationNodeDefinition };
@@ -172,7 +172,7 @@ export const destinyManifestLanguages = [
   'zh-cht',
 ] as const;
 
-export type DestinyManifestLanguage = typeof destinyManifestLanguages[number];
+export type DestinyManifestLanguage = (typeof destinyManifestLanguages)[number];
 
 // thoughts:
 // this relies on the assumption that the separate
@@ -207,10 +207,10 @@ export function getAllDestinyManifestComponents(
   http: HttpClient,
   params: GetAllDestinyManifestComponentsParams
 ): Promise<AllDestinyManifestComponents> {
-  return http({
-    method: 'GET',
-    url: 'https://www.bungie.net' + params.destinyManifest.jsonWorldContentPaths[params.language],
-  });
+  return get(
+    http,
+    'https://www.bungie.net' + params.destinyManifest.jsonWorldContentPaths[params.language]
+  );
 }
 
 export interface GetDestinyManifestComponentParams<T extends DestinyManifestComponentName> {
@@ -237,18 +237,14 @@ export async function getDestinyManifestComponent<T extends DestinyManifestCompo
   http: HttpClient,
   params: GetDestinyManifestComponentParams<T>
 ): Promise<AllDestinyManifestComponents[T]> {
-  const r = {
-    method: 'GET' as const,
-    url:
-      'https://www.bungie.net' +
-      params.destinyManifest.jsonWorldComponentContentPaths[params.language][params.tableName],
-  };
+  const url =
+    'https://www.bungie.net' +
+    params.destinyManifest.jsonWorldComponentContentPaths[params.language][params.tableName];
   try {
-    return await http(r);
+    return await get(http, url);
   } catch (e) {
-    r.url += '?retry';
     try {
-      return await http(r);
+      return await get(http, `${url}?retry`);
     } catch {
       throw e;
     }

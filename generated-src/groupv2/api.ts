@@ -264,10 +264,14 @@ export function getMembersOfGroup(
   http: HttpClient,
   params: GetMembersOfGroupParams
 ): Promise<ServerResponse<SearchResultOfGroupMember>> {
-  return get(http, `${API_BASE}${params.groupId}/Members/`, {
-    memberType: params.memberType,
-    nameSearch: params.nameSearch,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.memberType !== undefined) {
+    strParams.memberType = params.memberType.toString();
+  }
+  if (params.nameSearch !== undefined) {
+    strParams.nameSearch = params.nameSearch;
+  }
+  return get(http, `${API_BASE}${params.groupId}/Members/`, strParams);
 }
 
 export interface GetAdminsAndFounderOfGroupParams {

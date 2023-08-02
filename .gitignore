@@ -4,5 +4,3 @@ build/
 lib/package-lock.json
 /tests/test.js
 .npmrc
-
-.DS_Store

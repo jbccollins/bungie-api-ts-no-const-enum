@@ -148,12 +148,14 @@ export function getLinkedProfiles(
   http: HttpClient,
   params: GetLinkedProfilesParams
 ): Promise<ServerResponse<DestinyLinkedProfilesResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.getAllMemberships !== undefined) {
+    strParams.getAllMemberships = params.getAllMemberships.toString();
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.membershipId}/LinkedProfiles/`,
-    {
-      getAllMemberships: params.getAllMemberships,
-    }
+    strParams
   );
 }
 
@@ -175,9 +177,15 @@ export function getProfile(
   http: HttpClient,
   params: GetProfileParams
 ): Promise<ServerResponse<DestinyProfileResponse>> {
-  return get(http, `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/`, {
-    components: params.components ? params.components.join(',') : undefined,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
+  return get(
+    http,
+    `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/`,
+    strParams
+  );
 }
 
 export interface GetCharacterParams {
@@ -200,12 +208,14 @@ export function getCharacter(
   http: HttpClient,
   params: GetCharacterParams
 ): Promise<ServerResponse<DestinyCharacterResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/Character/${params.characterId}/`,
-    {
-      components: params.components ? params.components.join(',') : undefined,
-    }
+    strParams
   );
 }
 
@@ -254,12 +264,14 @@ export function getItem(
   http: HttpClient,
   params: GetItemParams
 ): Promise<ServerResponse<DestinyItemResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/Item/${params.itemInstanceId}/`,
-    {
-      components: params.components ? params.components.join(',') : undefined,
-    }
+    strParams
   );
 }
 
@@ -290,13 +302,17 @@ export function getVendors(
   http: HttpClient,
   params: GetVendorsParams
 ): Promise<ServerResponse<DestinyVendorsResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
+  if (params.filter !== undefined) {
+    strParams.filter = params.filter.toString();
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/Character/${params.characterId}/Vendors/`,
-    {
-      components: params.components ? params.components.join(',') : undefined,
-      filter: params.filter,
-    }
+    strParams
   );
 }
 
@@ -322,12 +338,14 @@ export function getVendor(
   http: HttpClient,
   params: GetVendorParams
 ): Promise<ServerResponse<DestinyVendorResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/Character/${params.characterId}/Vendors/${params.vendorHash}/`,
-    {
-      components: params.components ? params.components.join(',') : undefined,
-    }
+    strParams
   );
 }
 
@@ -351,9 +369,11 @@ export function getPublicVendors(
   http: HttpClient,
   params: GetPublicVendorsParams
 ): Promise<ServerResponse<DestinyPublicVendorsResponse>> {
-  return get(http, `${API_BASE}Vendors/`, {
-    components: params.components ? params.components.join(',') : undefined,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
+  return get(http, `${API_BASE}Vendors/`, strParams);
 }
 
 export interface GetCollectibleNodeDetailsParams {
@@ -389,12 +409,14 @@ export function getCollectibleNodeDetails(
   http: HttpClient,
   params: GetCollectibleNodeDetailsParams
 ): Promise<ServerResponse<DestinyCollectibleNodeDetailResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.components?.length) {
+    strParams.components = params.components.join(',');
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Profile/${params.destinyMembershipId}/Character/${params.characterId}/Collectibles/${params.collectiblePresentationNodeHash}/`,
-    {
-      components: params.components ? params.components.join(',') : undefined,
-    }
+    strParams
   );
 }
 
@@ -635,11 +657,17 @@ export function getClanLeaderboards(
   http: HttpClient,
   params: GetClanLeaderboardsParams
 ): Promise<ServerResponse<{ [key: string]: { [key: string]: DestinyLeaderboard } }>> {
-  return get(http, `${API_BASE}Stats/Leaderboards/Clans/${params.groupId}/`, {
-    maxtop: params.maxtop,
-    modes: params.modes,
-    statid: params.statid,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.maxtop !== undefined) {
+    strParams.maxtop = params.maxtop.toString();
+  }
+  if (params.modes !== undefined) {
+    strParams.modes = params.modes;
+  }
+  if (params.statid !== undefined) {
+    strParams.statid = params.statid;
+  }
+  return get(http, `${API_BASE}Stats/Leaderboards/Clans/${params.groupId}/`, strParams);
 }
 
 export interface GetClanAggregateStatsParams {
@@ -663,9 +691,11 @@ export function getClanAggregateStats(
   http: HttpClient,
   params: GetClanAggregateStatsParams
 ): Promise<ServerResponse<DestinyClanAggregateStat[]>> {
-  return get(http, `${API_BASE}Stats/AggregateClanStats/${params.groupId}/`, {
-    modes: params.modes,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.modes !== undefined) {
+    strParams.modes = params.modes;
+  }
+  return get(http, `${API_BASE}Stats/AggregateClanStats/${params.groupId}/`, strParams);
 }
 
 export interface GetLeaderboardsParams {
@@ -698,14 +728,20 @@ export function getLeaderboards(
   http: HttpClient,
   params: GetLeaderboardsParams
 ): Promise<ServerResponse<{ [key: string]: { [key: string]: DestinyLeaderboard } }>> {
+  const strParams: Record<string, string> = {};
+  if (params.maxtop !== undefined) {
+    strParams.maxtop = params.maxtop.toString();
+  }
+  if (params.modes !== undefined) {
+    strParams.modes = params.modes;
+  }
+  if (params.statid !== undefined) {
+    strParams.statid = params.statid;
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Account/${params.destinyMembershipId}/Stats/Leaderboards/`,
-    {
-      maxtop: params.maxtop,
-      modes: params.modes,
-      statid: params.statid,
-    }
+    strParams
   );
 }
 
@@ -744,14 +780,20 @@ export function getLeaderboardsForCharacter(
   http: HttpClient,
   params: GetLeaderboardsForCharacterParams
 ): Promise<ServerResponse<{ [key: string]: { [key: string]: DestinyLeaderboard } }>> {
+  const strParams: Record<string, string> = {};
+  if (params.maxtop !== undefined) {
+    strParams.maxtop = params.maxtop.toString();
+  }
+  if (params.modes !== undefined) {
+    strParams.modes = params.modes;
+  }
+  if (params.statid !== undefined) {
+    strParams.statid = params.statid;
+  }
   return get(
     http,
     `${API_BASE}Stats/Leaderboards/${params.membershipType}/${params.destinyMembershipId}/${params.characterId}/`,
-    {
-      maxtop: params.maxtop,
-      modes: params.modes,
-      statid: params.statid,
-    }
+    strParams
   );
 }
 
@@ -773,9 +815,11 @@ export function searchDestinyEntities(
   http: HttpClient,
   params: SearchDestinyEntitiesParams
 ): Promise<ServerResponse<DestinyEntitySearchResult>> {
-  return get(http, `${API_BASE}Armory/Search/${params.type}/${params.searchTerm}/`, {
-    page: params.page,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.page !== undefined) {
+    strParams.page = params.page.toString();
+  }
+  return get(http, `${API_BASE}Armory/Search/${params.type}/${params.searchTerm}/`, strParams);
 }
 
 export interface GetHistoricalStatsParams {
@@ -822,16 +866,26 @@ export function getHistoricalStats(
   http: HttpClient,
   params: GetHistoricalStatsParams
 ): Promise<ServerResponse<{ [key: string]: DestinyHistoricalStatsByPeriod }>> {
+  const strParams: Record<string, string> = {};
+  if (params.dayend !== undefined) {
+    strParams.dayend = params.dayend;
+  }
+  if (params.daystart !== undefined) {
+    strParams.daystart = params.daystart;
+  }
+  if (params.groups?.length) {
+    strParams.groups = params.groups.join(',');
+  }
+  if (params.modes?.length) {
+    strParams.modes = params.modes.join(',');
+  }
+  if (params.periodType !== undefined) {
+    strParams.periodType = params.periodType.toString();
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Account/${params.destinyMembershipId}/Character/${params.characterId}/Stats/`,
-    {
-      dayend: params.dayend,
-      daystart: params.daystart,
-      groups: params.groups ? params.groups.join(',') : undefined,
-      modes: params.modes ? params.modes.join(',') : undefined,
-      periodType: params.periodType,
-    }
+    strParams
   );
 }
 
@@ -855,12 +909,14 @@ export function getHistoricalStatsForAccount(
   http: HttpClient,
   params: GetHistoricalStatsForAccountParams
 ): Promise<ServerResponse<DestinyHistoricalStatsAccountResult>> {
+  const strParams: Record<string, string> = {};
+  if (params.groups?.length) {
+    strParams.groups = params.groups.join(',');
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Account/${params.destinyMembershipId}/Stats/`,
-    {
-      groups: params.groups ? params.groups.join(',') : undefined,
-    }
+    strParams
   );
 }
 
@@ -888,14 +944,20 @@ export function getActivityHistory(
   http: HttpClient,
   params: GetActivityHistoryParams
 ): Promise<ServerResponse<DestinyActivityHistoryResults>> {
+  const strParams: Record<string, string> = {};
+  if (params.count !== undefined) {
+    strParams.count = params.count.toString();
+  }
+  if (params.mode !== undefined) {
+    strParams.mode = params.mode.toString();
+  }
+  if (params.page !== undefined) {
+    strParams.page = params.page.toString();
+  }
   return get(
     http,
     `${API_BASE}${params.membershipType}/Account/${params.destinyMembershipId}/Character/${params.characterId}/Stats/Activities/`,
-    {
-      count: params.count,
-      mode: params.mode,
-      page: params.page,
-    }
+    strParams
   );
 }
 

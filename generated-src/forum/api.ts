@@ -52,13 +52,17 @@ export function getTopicsPaged(
   http: HttpClient,
   params: GetTopicsPagedParams
 ): Promise<ServerResponse<PostSearchResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.locales !== undefined) {
+    strParams.locales = params.locales;
+  }
+  if (params.tagstring !== undefined) {
+    strParams.tagstring = params.tagstring;
+  }
   return get(
     http,
     `${API_BASE}GetTopicsPaged/${params.page}/${params.pageSize}/${params.group}/${params.sort}/${params.quickDate}/${params.categoryFilter}/`,
-    {
-      locales: params.locales,
-      tagstring: params.tagstring,
-    }
+    strParams
   );
 }
 
@@ -83,12 +87,14 @@ export function getCoreTopicsPaged(
   http: HttpClient,
   params: GetCoreTopicsPagedParams
 ): Promise<ServerResponse<PostSearchResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.locales !== undefined) {
+    strParams.locales = params.locales;
+  }
   return get(
     http,
     `${API_BASE}GetCoreTopicsPaged/${params.page}/${params.sort}/${params.quickDate}/${params.categoryFilter}/`,
-    {
-      locales: params.locales,
-    }
+    strParams
   );
 }
 
@@ -112,12 +118,14 @@ export function getPostsThreadedPaged(
   http: HttpClient,
   params: GetPostsThreadedPagedParams
 ): Promise<ServerResponse<PostSearchResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.showbanned !== undefined) {
+    strParams.showbanned = params.showbanned;
+  }
   return get(
     http,
     `${API_BASE}GetPostsThreadedPaged/${params.parentPostId}/${params.page}/${params.pageSize}/${params.replySize}/${params.getParentPost}/${params.rootThreadMode}/${params.sortMode}/`,
-    {
-      showbanned: params.showbanned,
-    }
+    strParams
   );
 }
 
@@ -140,12 +148,14 @@ export function getPostsThreadedPagedFromChild(
   http: HttpClient,
   params: GetPostsThreadedPagedFromChildParams
 ): Promise<ServerResponse<PostSearchResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.showbanned !== undefined) {
+    strParams.showbanned = params.showbanned;
+  }
   return get(
     http,
     `${API_BASE}GetPostsThreadedPagedFromChild/${params.childPostId}/${params.page}/${params.pageSize}/${params.replySize}/${params.rootThreadMode}/${params.sortMode}/`,
-    {
-      showbanned: params.showbanned,
-    }
+    strParams
   );
 }
 
@@ -160,9 +170,11 @@ export function getPostAndParent(
   http: HttpClient,
   params: GetPostAndParentParams
 ): Promise<ServerResponse<PostSearchResponse>> {
-  return get(http, `${API_BASE}GetPostAndParent/${params.childPostId}/`, {
-    showbanned: params.showbanned,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.showbanned !== undefined) {
+    strParams.showbanned = params.showbanned;
+  }
+  return get(http, `${API_BASE}GetPostAndParent/${params.childPostId}/`, strParams);
 }
 
 export interface GetPostAndParentAwaitingApprovalParams {
@@ -179,9 +191,11 @@ export function getPostAndParentAwaitingApproval(
   http: HttpClient,
   params: GetPostAndParentAwaitingApprovalParams
 ): Promise<ServerResponse<PostSearchResponse>> {
-  return get(http, `${API_BASE}GetPostAndParentAwaitingApproval/${params.childPostId}/`, {
-    showbanned: params.showbanned,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.showbanned !== undefined) {
+    strParams.showbanned = params.showbanned;
+  }
+  return get(http, `${API_BASE}GetPostAndParentAwaitingApproval/${params.childPostId}/`, strParams);
 }
 
 export interface GetTopicForContentParams {
@@ -209,9 +223,11 @@ export function getForumTagSuggestions(
   http: HttpClient,
   params: GetForumTagSuggestionsParams
 ): Promise<ServerResponse<TagResponse[]>> {
-  return get(http, `${API_BASE}GetForumTagSuggestions/`, {
-    partialtag: params.partialtag,
-  });
+  const strParams: Record<string, string> = {};
+  if (params.partialtag !== undefined) {
+    strParams.partialtag = params.partialtag;
+  }
+  return get(http, `${API_BASE}GetForumTagSuggestions/`, strParams);
 }
 
 export interface GetPollParams {

@@ -6,10 +6,24 @@ This project is a fork of [bungie-api-ts-no-const-enum](https://github.com/jbcco
 
 Here is the mapping of versions
 
-| bungie-api-ts-no-const-enum | bungie-api-ts-no-const-enum |
-| --------------------------- | --------------------------- |
-| 4.19.0                      | 0.0.3                       |
-| 0.0.8                       | 0.0.7                       |
+| bungie-api-ts | bungie-api-ts-no-const-enum |
+| ------------- | --------------------------- |
+| 4.19.0        | 0.0.3                       |
+| 4.22.3        | 0.0.8                       |
+| 5.0.0         | 0.0.9                       |
+
+#### Modified development steps:
+
+1. Clobber this repo with the bungie-api-ts repo
+2. Replace `export const enum` with `export enum` in `generate-interfaces.ts`
+3. Run `yarn && yarn submodule`
+4. Run `yarn start`
+5. Replace all instances of `bungie-api-ts` with `bungie-api-ts-no-const-enum`
+6. Replace all instances of `DestinyItemManager/bungie-api-ts-no-const-enum` with `jbccollins/bungie-api-ts-no-const-enum`
+7. Bump the version and change it in all places (e.g. change all instances of 4.22.3 to 0.0.8)
+8. Add the version mapping to this README file.
+9. Commit and push all changes
+10. Run `npm run publish`
 
 # Bungie API TypeScript support
 

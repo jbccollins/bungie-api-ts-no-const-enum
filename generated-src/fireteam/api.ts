@@ -73,13 +73,17 @@ export function getAvailableClanFireteams(
   http: HttpClient,
   params: GetAvailableClanFireteamsParams
 ): Promise<ServerResponse<SearchResultOfFireteamSummary>> {
+  const strParams: Record<string, string> = {};
+  if (params.excludeImmediate !== undefined) {
+    strParams.excludeImmediate = params.excludeImmediate.toString();
+  }
+  if (params.langFilter !== undefined) {
+    strParams.langFilter = params.langFilter;
+  }
   return get(
     http,
     `${API_BASE}Clan/${params.groupId}/Available/${params.platform}/${params.activityType}/${params.dateRange}/${params.slotFilter}/${params.publicOnly}/${params.page}/`,
-    {
-      excludeImmediate: params.excludeImmediate,
-      langFilter: params.langFilter,
-    }
+    strParams
   );
 }
 
@@ -111,13 +115,17 @@ export function searchPublicAvailableClanFireteams(
   http: HttpClient,
   params: SearchPublicAvailableClanFireteamsParams
 ): Promise<ServerResponse<SearchResultOfFireteamSummary>> {
+  const strParams: Record<string, string> = {};
+  if (params.excludeImmediate !== undefined) {
+    strParams.excludeImmediate = params.excludeImmediate.toString();
+  }
+  if (params.langFilter !== undefined) {
+    strParams.langFilter = params.langFilter;
+  }
   return get(
     http,
     `${API_BASE}Search/Available/${params.platform}/${params.activityType}/${params.dateRange}/${params.slotFilter}/${params.page}/`,
-    {
-      excludeImmediate: params.excludeImmediate,
-      langFilter: params.langFilter,
-    }
+    strParams
   );
 }
 
@@ -150,13 +158,17 @@ export function getMyClanFireteams(
   http: HttpClient,
   params: GetMyClanFireteamsParams
 ): Promise<ServerResponse<SearchResultOfFireteamResponse>> {
+  const strParams: Record<string, string> = {};
+  if (params.groupFilter !== undefined) {
+    strParams.groupFilter = params.groupFilter.toString();
+  }
+  if (params.langFilter !== undefined) {
+    strParams.langFilter = params.langFilter;
+  }
   return get(
     http,
     `${API_BASE}Clan/${params.groupId}/My/${params.platform}/${params.includeClosed}/${params.page}/`,
-    {
-      groupFilter: params.groupFilter,
-      langFilter: params.langFilter,
-    }
+    strParams
   );
 }
 
