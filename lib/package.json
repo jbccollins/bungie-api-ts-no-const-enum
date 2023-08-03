@@ -1,6 +1,6 @@
 {
   "name": "bungie-api-ts-no-const-enum",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "TypeScript mappings for the Bungie.net API",
   "type": "module",
   "sideEffects": false,

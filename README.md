@@ -2,7 +2,7 @@
 
 # IMPORTANT: READ THIS FIRST, YES. YOU!
 
-This project is a fork of [bungie-api-ts-no-const-enum](https://github.com/jbccollins/bungie-api-ts-no-const-enum). The only reason this exists is to change `export const enum` to just `export enum` on [this line](https://github.com/jbccollins/bungie-api-ts-no-const-enum/blob/b29c34a417da0430dcbebea9b9716b9554eae6aa/generator/generate-interfaces.ts#L96). You can read more about why exporting a const enum is no bueno in [this github thread](https://github.com/jbccollins/bungie-api-ts-no-const-enum/issues/38#issuecomment-1289923993).
+This project is a fork of [bungie-api-ts](https://github.com/DestinyItemManager/bungie-api-ts). The only reason this exists is to change `export const enum` to just `export enum` on [this line](https://github.com/jbccollins/bungie-api-ts-no-const-enum/blob/b29c34a417da0430dcbebea9b9716b9554eae6aa/generator/generate-interfaces.ts#L96).
 
 [This github issue](https://github.com/DestinyItemManager/bungie-api-ts/issues/38) describes why this fork is needed is some cases.
 
@@ -14,7 +14,7 @@ Here is the mapping of versions
 | ------------- | --------------------------- |
 | 4.19.0        | 0.0.3                       |
 | 4.22.3        | 0.0.8                       |
-| 5.0.0         | 0.0.9                       |
+| 5.0.0         | 0.0.10                      |
 
 #### Modified development steps:
 
